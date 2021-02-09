@@ -38,4 +38,4 @@ The Project is released under the terms of the MIT License.
 Author Information
 ------------------
 
-If you have any queries regarding the project, you can join and ask queries in our [discord server](https://discord.gg/rGw7nVWyFN)
+If you have any queries regarding the project, you can join and ask queries in our [discord server](https://discord.gg/rGw7nVWyFN).
