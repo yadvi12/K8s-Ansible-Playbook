@@ -36,9 +36,6 @@ kubectl get pods
 kubectl get pods -n "kube-system"
 ```
 
-## Additional features:
-
-
 
 ## Get Involved:
 *  Read [Community Guidelines](<https://github.com/yadvi12/K8s-Ansible-Playbook/blob/main/CONTRIBUTING.md>) for all
