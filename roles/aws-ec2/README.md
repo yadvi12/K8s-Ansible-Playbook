@@ -1,17 +1,27 @@
-Role Name
+AWS-EC2 ROLE
 =========
 
-A brief description of the role goes here.
+This role is created to launch the instances in the AWS public cloud and then dynamically retrieving the IPs of the instances and updating the inventory file of the ansible.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Boto3 module should be installed in your system. If it's not installed, use `pip3 install boto3` to install it.
 
 Role Variables
 --------------
+Navigate to vars/main.yml file and provide the value of the variables.
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+| Variables | Description |
+| --- | --- |
+| `key` | provide the AWS key in pem format |
+| `instanceType` | Provide the instance type |
+| `image_id` | ami ID to use for the instance |
+| `region_name` | The AWS region to use |
+| `security_grp_id` | Security group id (or list of ids) to use with the instance |
+| `subnet_id` | The subnet ID in which to launch the instance (VPC) |
+| `access_key` | AWS access key |
+| `secret_key` | AWS secret key |
 
 Dependencies
 ------------
