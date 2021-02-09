@@ -26,6 +26,7 @@ System requirements:
 
 ## Verification:
 
+The playbook will download /etc/kubernetes/admin.conf file to $HOME/admin.conf.
 - Login to the master node.
 - Verify cluster is fully running using kubectl:
 
