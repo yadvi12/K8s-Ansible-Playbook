@@ -1,38 +1,41 @@
-Role Name
+K8s-Master Role
 =========
 
-A brief description of the role goes here.
+A master node is a node which controls and manages a set of worker nodes (workloads runtime) and resembles a cluster in Kubernetes.
+This role is created to configure Kubernetes Master on top of AWS RHEL8 Instance.
 
 Requirements
 ------------
+- Deployment environment must have Ansible 2.9.0+
+- Master and nodes must have passwordless SSH access
+- Boto3 
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
-
-Role Variables
---------------
-
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
-
-Dependencies
+About Master Node
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+A master node has the following components to help manage worker nodes:
+
+- Kube-APIServer, which acts as the frontend to the cluster. All external communication to the cluster is via the API-Server.
+- Kube-Controller-Manager, which runs a set of controllers for the running cluster. The controller-manager implements governance across the cluster.
+Etcd, the cluster state database.
+- Kube Scheduler, which schedules activities to the worker nodes based on events occurring on the etcd. It also holds the nodes resources plan to determine the proper action for the triggered event. For example the scheduler would figure out which worker node will host a newly scheduled POD.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+To use this role in your own playbook, refer the following example:
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+    - hosts: tag_Name_K8s_Master
+      roles: 
+     - role: "K8s-master"
 
 License
 -------
 
-BSD
+The Project is released under the terms of the MIT License.
+
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+If you have any queries regarding the project, you can contact 
