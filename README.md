@@ -7,3 +7,10 @@ System requirements:
 - Master and nodes must have passwordless SSH access
 
 ## Usage:
+
+- Install ansible 2.9.0+ in your system.
+- Clone this repository in any location you want.
+- Create a folder "/etc/ansible" in your system.
+- Copy the "ansible.cfg" file in /etc/ansible location.
+- Open the ansible.cfg file and change the required parameters.
+
