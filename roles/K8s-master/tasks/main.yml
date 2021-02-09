@@ -1,0 +1,93 @@
+---
+# tasks file for K8s-master
+- debug:
+        msg: "Configuring the master node.."
+- name: "Configuring repository for docker"
+  yum_repository:
+               name: "docker"
+               description: "yum repo for docker"
+               baseurl: "https://download.docker.com/linux/centos/7/x86_64/stable"
+               gpgcheck: no
+- name: "Installing containerd.io"
+  package:
+                 name: "https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.4.3-3.1.el7.x86_64.rpm"
+                 state: present
+                 disable_gpg_check: True
+- name: "Installing docker"
+  package:
+            name: "docker-ce"
+            state: present
+- name: "Disabling SElinux"
+  selinux:
+            state: disabled
+- name: "Starting and enabling docker service permanently"
+  service:
+            name: "docker"
+            state: started
+            enabled: yes
+- name: "Configuring repository for K8s"
+  yum_repository:
+            name: "K8s-repo"
+            description: "Repository for K8s"
+            baseurl: "https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64"
+            gpgcheck: no
+- name: "Installing kubeadm, kubectl and kubelet"
+  package:
+            name: "kubeadm"
+            state: present
+- name: "Starting and enabling kubelet service permanently"
+  service:
+            name: "kubelet"
+            state: started
+            enabled: yes
+- name: "Pulling docker images"
+  command: "kubeadm config images pull"
+- name: "Changing the driver to systemd"
+  copy:
+            dest: "/etc/docker/daemon.json"
+            content: '{
+                      "exec-opts": ["native.cgroupdriver=systemd"]
+                      }'
+- name: "Restarting docker service"
+  service:
+            name: "docker"
+            state: restarted
+- name: "Installing iproute-tc software"
+  package:
+            name: "iproute-tc"
+            state: present
+- name: "Configuring network"
+  copy:
+            dest: "/etc/sysctl.d/k8s.conf"
+            content:
+                - "net.bridge.bridge-nf-call-ip6tables = 1"
+                - "net.bridge.bridge-nf-call-iptables = 1"
+- name: "Starting sysctl service"
+  command: "sudo sysctl --system"
+  become_user: root
+  become_method: sudo
+  become: true
+- name: "Initializing kubeadm and ignoring RAM and CPU errors"
+  command: "kubeadm init --pod-network-cidr=10.240.0.0/16 --ignore-preflight-errors=NumCPU --ignore-preflight-errors=Mem"
+- name: "Making .kube directory"
+  command: "mkdir -p $HOME/.kube"
+- name: "Copying admin.conf file to .kube directory"
+  command: "sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config"
+- name: "Changing owner .kube directory"
+  shell: "sudo chown $(id -u):$(id -g) $HOME/.kube/config"
+- name: "Configuring flannel networks"
+  command: "kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml"
+- name: "Changing permissions"
+  shell: "export KUBECONFIG=/etc/kubernetes/admin.conf"
+- debug:
+        msg: "Voila! Your system is configured as a master node :)"
+- name: "Printing the join command for worker nodes"
+  shell: "kubeadm token create --print-join-command"
+  register: token
+- name: "Below is the join command for the worker nodes"
+  debug:
+      msg: "{{ token['stdout'] }}"
+- name: A helpful reminder of what to look out for post-update
+  pause:
+        prompt: "Make sure that you copied the join command correctly, press enter to continue .."
+  

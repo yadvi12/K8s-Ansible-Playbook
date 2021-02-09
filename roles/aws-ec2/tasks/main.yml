@@ -1,0 +1,48 @@
+---
+# tasks file for aws-ec2
+- name: launching AWS instance for configuring K8s master node
+  amazon.aws.ec2:
+      key_name: "{{ key }}"
+      instance_type: "{{ instanceType }}"
+      image: "{{ image_id }}"
+      instance_tags: 
+          Country: IN
+          Name: K8s_Master
+          Env: development
+          Author: Yadvi_Bhalla
+      region: "{{ region_name }}"
+      group_id: "{{ security_grp_id }}"
+      vpc_subnet_id: "{{ subnet_id }}"
+      wait: yes
+      count: 1
+      assign_public_ip: yes
+      aws_access_key: "{{ access_key }}"
+      aws_secret_key: "{{ secret_key }}"
+- name: launching AWS instance for configuring K8s worker node
+  amazon.aws.ec2:
+      key_name: "{{ key }}"
+      instance_type: "{{ instanceType }}"
+      image: "{{ image_id }}"
+      instance_tags:
+          Country: IN
+          Name: K8s_Worker
+          Env: development
+          Author: Yadvi_Bhalla
+      region: "{{ region_name }}"
+      group_id: "{{ security_grp_id }}"
+      vpc_subnet_id: "{{ subnet_id }}"
+      wait: yes
+      count: "{{ wns }}"
+      assign_public_ip: yes
+      aws_access_key: "{{ access_key }}"
+      aws_secret_key: "{{ secret_key }}"
+
+
+
+- name: Waiting for the instances to launch
+  pause:
+         minutes: 3
+
+
+- name: Refresh inventory to ensure new instances exist in inventory
+  meta: refresh_inventory

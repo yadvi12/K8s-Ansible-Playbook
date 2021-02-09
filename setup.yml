@@ -1,0 +1,21 @@
+- hosts: localhost
+  vars_prompt:
+      - name: wns
+        prompt: "How many K8s worker nodes you wanna launch- "
+        private: no
+  roles:
+  - role: "aws-ec2"
+
+
+- hosts: tag_Name_K8s_Master
+  roles: 
+  - role: "K8s-master"
+ 
+
+- hosts: tag_Name_K8s_Worker
+  vars_prompt:
+      - name: joincmd
+        prompt: "Enter the command to join the worker nodes to the master nodes- "
+        private: no
+  roles:
+  - role: "K8s-worker"

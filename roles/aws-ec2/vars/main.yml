@@ -1,0 +1,11 @@
+---
+# vars file for aws-ec2
+key: "RDSkey"
+instanceType: "t2.small"
+image_id: "ami-0a9d27a9f4f5c0efc"
+region_name: "ap-south-1"
+security_grp_id: "sg-003af9c4b48b42f48"
+subnet_id: "subnet-03f58a4f"
+access_key: "A********************C"
+secret_key: "V*****************************5+"
+
