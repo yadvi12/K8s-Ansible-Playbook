@@ -26,7 +26,7 @@ Example Playbook
 
 To use this role in your own playbook, refer the following example:
 
-    - hosts: tag_Name_K8s_Master
+    - hosts: tag_Name_K8s_Worker
       roles: 
      - role: "K8s-worker"
 
