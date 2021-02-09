@@ -46,7 +46,7 @@ kubectl get pods -n kube-system"
    including how to submit bug reports and
    code to repository.
 *  Submit a proposed code update through a pull request to the ``master`` branch.
-*  Talk to us before making larger changes
+*  Talk to the owner before making larger changes
    to avoid duplicate efforts. This not only helps everyone
    know what is going on, it also helps save time and effort if we decide
    some changes are needed.
