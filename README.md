@@ -23,3 +23,14 @@ System requirements:
  ```
  
  - Run the playbook using "ansible-playbook setup.yml" command.
+
+## Verification:
+
+- Login to the master node.
+- Verify cluster is fully running using kubectl:
+
+```sh
+kubectl get nodes
+kubectl get pods
+kubectl get pods -n kube-system"
+```
