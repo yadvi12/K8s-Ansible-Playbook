@@ -1,4 +1,4 @@
-# Kubeadm Ansible Playbook
+# Kubernetes multinode cluster setup on AWS RHEL8 instance using Ansible
 Build a Kubernetes cluster using Ansible with kubeadm. The goal is easily install a Kubernetes cluster on machines running RHEL8 and centos on top of AWS public cloud.
 
 System requirements:
