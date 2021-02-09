@@ -26,13 +26,11 @@ Navigate to vars/main.yml file and provide the value of the variables.
 
 Example Playbook
 ----------------
+To use this role in your own playbook, refer the following example:
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
-
+    - hosts: localhost
+      roles: 
+     - role: "aws-ec2"
 License
 -------
 
