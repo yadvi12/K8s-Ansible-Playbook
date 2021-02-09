@@ -33,7 +33,7 @@ The playbook will download /etc/kubernetes/admin.conf file to $HOME/admin.conf.
 ```sh
 kubectl get nodes
 kubectl get pods
-kubectl get pods -n kube-system"
+kubectl get pods -n "kube-system"
 ```
 
 ## Additional features:
