@@ -47,3 +47,8 @@ kubectl get pods -n "kube-system"
    to avoid duplicate efforts. This not only helps everyone
    know what is going on, it also helps save time and effort if we decide
    some changes are needed.
+   
+## License:
+The Project is released under the terms of the MIT License.
+
+
