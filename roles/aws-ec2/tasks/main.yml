@@ -41,7 +41,7 @@
 
 - name: Waiting for the instances to launch
   pause:
-         minutes: 3
+         minutes: 1
 
 
 - name: Refresh inventory to ensure new instances exist in inventory
